@@ -1,0 +1,191 @@
+{
+  "id": "3207421",
+  "name": "最大化",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12545458",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "630092",
+      "name": "向下箭头",
+      "font_class": "xiangxiajiantou",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "775396",
+      "name": "历史记录",
+      "font_class": "lishijilu",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "9216735",
+      "name": "箭头2-右上_line",
+      "font_class": "arrow-rt_line",
+      "unicode": "e6e4",
+      "unicode_decimal": 59108
+    },
+    {
+      "icon_id": "11490920",
+      "name": "最大化",
+      "font_class": "zuidahua",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "1471079",
+      "name": "表情",
+      "font_class": "biaoqing-xue",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "1984632",
+      "name": "电话",
+      "font_class": "dianhua",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "2418243",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "3217827",
+      "name": "放大镜",
+      "font_class": "icon-",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "4128594",
+      "name": "搜一搜",
+      "font_class": "souyisou",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "4880431",
+      "name": "关闭",
+      "font_class": "guanbi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "4893191",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "ec17",
+      "unicode_decimal": 60439
+    },
+    {
+      "icon_id": "5150522",
+      "name": "icon_视频-线",
+      "font_class": "icon_shipin-xian",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "5777521",
+      "name": "手机号",
+      "font_class": "shoujihao",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "7342740",
+      "name": "小程序",
+      "font_class": "xiaochengxu",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "11490918",
+      "name": "最小化",
+      "font_class": "zuixiaohua",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "16364339",
+      "name": "朋友圈",
+      "font_class": "pengyouquan",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "16807515",
+      "name": "发起群聊",
+      "font_class": "faqiqunliao",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "18863160",
+      "name": "更多",
+      "font_class": "gengduo1",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "20987855",
+      "name": "视频号",
+      "font_class": "shipinhao",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "24669218",
+      "name": "通讯录",
+      "font_class": "tongxunlu",
+      "unicode": "e6f1",
+      "unicode_decimal": 59121
+    },
+    {
+      "icon_id": "25638591",
+      "name": "tuding",
+      "font_class": "tuding",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "26661590",
+      "name": "剪刀、剪切",
+      "font_class": "a-jiandaojianqie",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "26661626",
+      "name": "聊天-圆-圆点",
+      "font_class": "liaotian-yuan-yuandian",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "26661648",
+      "name": "聊天-圆-空",
+      "font_class": "liaotian-yuan-kong",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "27546188",
+      "name": "立方体",
+      "font_class": "lifangti",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    }
+  ]
+}
