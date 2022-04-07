@@ -2,7 +2,6 @@ window.addEventListener('load', function () {
     //桌面部分
     var Desk = document.querySelectorAll('.Desk');
     var calculator = document.getElementById('calculator');
-    var calcuClose = document.querySelector('#calcu-close');
     var head = document.querySelector('#head');
     for (var i = 0; i < Desk.length; i++) {
         Desk[i].addEventListener('mouseover', function () {
@@ -22,17 +21,112 @@ window.addEventListener('load', function () {
     Desk[0].addEventListener('dblclick', function () {
         this.style.borderColor = 'transparent';
         calculator.style.display = 'block';
+        wechatBody.style.zIndex = '3';
+        calculator.style.zIndex = '9';
     })
+    
+    //微信部分
+    var mBoxName = document.querySelectorAll('.middle-box-name');
+    var mBoxTime = document.querySelectorAll('.time');
+    var wechatClose = document.querySelector('#wechat-close');
+    var chat = document.querySelector('#chat');
+    var send = document.querySelector('#send');
+    var wechatBody = document.querySelector('#wechat-body');
+    var inputText = document.querySelector('#input-text');
+    var rtBox = document.querySelector('.rt-box');
+    var inChat=document.querySelector('.in-chat');
     Desk[1].addEventListener('dblclick', function () {
         this.style.borderColor = 'transparent';
         wechatBody.style.display = 'block';
-        chat.scrollTop = chat.scrollHeight - chat.offsetHeight;
+        chat.scrollTop = chat.scrollHeight;
+        console.log(mBoxTime[1].offsetWidth);
+        for (var k = 0; k < mBoxName.length; k++) {
+            mBoxName[k].style.width = 176 - mBoxTime[k].offsetWidth + 'px';
+        }
+        wechatBody.style.zIndex = '9';
+        calculator.style.zIndex = '3';
     })
+    wechatClose.addEventListener('click', function (e) {
+        wechatBody.style.display = 'none';
+        e.stopPropagation();
+    })
+    wechatBody.addEventListener('click', function () {
+        calculator.style.zIndex = '3';
+        this.style.zIndex = '9';
+    })
+    calculator.addEventListener('click', function () {
+        wechatBody.style.zIndex = '3';
+        this.style.zIndex = '9';
+    })
+    rtBox.addEventListener('mousedown', function (e) {
+        var x, y;
+        function fn(event) {
+            wechatBody.style.left = event.pageX - x + 'px';
+            wechatBody.style.top = event.pageY - y + 'px';
+        }
+        x = e.pageX - wechatBody.offsetLeft;
+        y = e.pageY - wechatBody.offsetTop;
+        document.addEventListener('mousemove', fn);
+        document.addEventListener('mouseup', function () {
+            document.removeEventListener('mousemove', fn);
+        })
+
+    });
+    inputText.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && event.key === 'Enter') {
+            inputText.value += '\n';
+        } else if (event.key === 'Enter') {
+            event.preventDefault();
+            send.click();
+        }
+    });
+    function countTime() {
+        var _now = new Date();
+        var hour = _now.getHours();
+        var min = _now.getMinutes();
+        min = min >= 10 ? min : '0' + min;
+        return hour + ':' + min;
+    }
+    var alert = document.getElementById('alert');
+    function alertOpenAll() {
+        alert.style.display = 'block';
+    }
+    function alertCloseAll() {
+        alert.style.display = 'none';
+    }
+    send.onclick = function () {
+        var newDiv = document.createElement('div');
+        newDiv.className = "float-right chat-box";
+        var comstrs = inputText.value.replaceAll('\n', '<br/>');
+        comstrs = comstrs.replaceAll(' ', '&nbsp;');
+        newDiv.innerHTML = '<img src="images/微信头像1.jpg" height="35" class="float-right user-select"><div class="dialogue-me float-right" data-time="' + (+new Date()) + '">' + comstrs + '</div>';
+        var _newDiv = document.createElement('div');
+        _newDiv.className = "float-left time-box";
+        _newDiv.innerHTML = '<span class="chat-time user-select">' + countTime() + '</span>';
+        if (inputText.value.trim() == '') {
+            alertOpenAll();
+            setTimeout(alertCloseAll, 3000);
+        }
+        else {
+            if (newDiv.children[newDiv.children.length - 1].dataset.time - chat.children[chat.children.length - 1].children[chat.children[chat.children.length - 1].children.length - 1].dataset.time > 120000) {
+                chat.appendChild(_newDiv);
+            }
+            chat.appendChild(newDiv);
+            inChat.children[2].innerHTML=countTime();
+            inChat.children[3].innerHTML=inputText.value.replaceAll(' ','&nbsp;');
+            inChat.children[1].style.width = 176 - inChat.children[2].offsetWidth + 'px';
+        }
+        chat.scrollTop = chat.scrollHeight;
+        inputText.value = '';
+    }
+
     //计算器部分
     var menu = document.querySelector('#menu');
     var menuIcon = document.querySelector('#menu-icon');
     var result = document.querySelector('#result');
     var process = document.querySelector('#process');
+    var del = document.querySelector('#delete');
+    var calcuClose = document.querySelector('#calcu-close');
     calcuClose.addEventListener('click', function (e) {
         calculator.style.display = 'none';
         e.stopPropagation();
@@ -72,7 +166,7 @@ window.addEventListener('load', function () {
             flag1 = 1;
         } else {
             menu.style.left = -menu.offsetWidth + 'px';
-            menu.style.top = 3 - menu.offsetHeight + 'px';
+            menu.style.top = - menu.offsetHeight + 'px';
             move(menu, 0);
             flag1 = 0;
         }
@@ -116,6 +210,15 @@ window.addEventListener('load', function () {
         }
         else if (str == '+' || str == '-') {
             flag2 = 1;
+            if (strs[strs.length - 2] == '+' || strs[strs.length - 2] == '-' || strs[strs.length - 2] == '*' || strs[strs.length - 2] == '/') {
+                strs = strs.split('');
+                strs.pop();
+                strs.pop();
+                strs.push(str + ' ');
+                strs = strs.join('');
+                process.innerHTML = printStrs(strs);
+                return 1;
+            }
             if (strs != '') {
                 if (strs.indexOf('+') != -1 || strs.indexOf('-') != -1 || strs.indexOf('*') != -1 || strs.indexOf('/') != -1) {
                     num = eval(strs);
@@ -135,6 +238,15 @@ window.addEventListener('load', function () {
         }
         else if (str == '×') {
             flag2 = 1;
+            if (strs[strs.length - 2] == '+' || strs[strs.length - 2] == '-' || strs[strs.length - 2] == '*' || strs[strs.length - 2] == '/') {
+                strs = strs.split('');
+                strs.pop();
+                strs.pop();
+                strs.push('* ');
+                strs = strs.join('');
+                process.innerHTML = printStrs(strs);
+                return 1;
+            }
             if (strs != '') {
                 if (strs.indexOf('+') != -1 || strs.indexOf('-') != -1 || strs.indexOf('*') != -1 || strs.indexOf('/') != -1) {
                     num = eval(strs);
@@ -154,6 +266,15 @@ window.addEventListener('load', function () {
         }
         else if (str == '÷') {
             flag2 = 1;
+            if (strs[strs.length - 2] == '+' || strs[strs.length - 2] == '-' || strs[strs.length - 2] == '*' || strs[strs.length - 2] == '/') {
+                strs = strs.split('');
+                strs.pop();
+                strs.pop();
+                strs.push('/ ');
+                strs = strs.join('');
+                process.innerHTML = printStrs(strs);
+                return 1;
+            }
             if (strs != '') {
                 if (strs.indexOf('+') != -1 || strs.indexOf('-') != -1 || strs.indexOf('*') != -1 || strs.indexOf('/') != -1) {
                     num = eval(strs);
@@ -173,6 +294,9 @@ window.addEventListener('load', function () {
 
         }
         else {
+            if (str == '.' && strs[strs.length - 1] == ' ') {
+                strs += '0';
+            }
             if (flag2 == 0) {
                 //如果使用了等号 再输入数字就要初始化
                 strs = '';
@@ -203,79 +327,4 @@ window.addEventListener('load', function () {
         }
     }
 
-    //微信部分
-    var wechatClose = document.querySelector('#wechat-close');
-    var chat = document.querySelector('#chat');
-    var send = document.querySelector('#send');
-    var wechatBody = document.querySelector('#wechat-body');
-    var inputText = document.querySelector('#input-text');
-    var rtBox = document.querySelector('.rt-box');
-    wechatClose.addEventListener('click', function (e) {
-        wechatBody.style.display = 'none';
-        e.stopPropagation();
-    })
-    rtBox.addEventListener('mousedown', function (e) {
-        var x, y;
-        function fn(event) {
-            wechatBody.style.left = event.pageX - x + 'px';
-            wechatBody.style.top = event.pageY - y + 'px';
-        }
-        x = e.pageX - wechatBody.offsetLeft;
-        y = e.pageY - wechatBody.offsetTop;
-        document.addEventListener('mousemove', fn);
-        document.addEventListener('mouseup', function () {
-            document.removeEventListener('mousemove', fn);
-        })
-
-    });
-    inputText.addEventListener('keydown', function (event) {
-        if (event.ctrlKey && event.key === 'Enter') {
-            inputText.value += '\n';
-        } else if (event.key === 'Enter') {
-            event.preventDefault();
-            send.click();
-        }
-    });
-    function countTime() {
-        var _now = new Date();
-        var hour = _now.getHours();
-        hour = hour >= 10 ? hour : '0' + hour;
-        var min = _now.getMinutes();
-        min = min >= 10 ? min : '0' + min;
-        return hour + ':' + min;
-    }
-    var alert1 = document.getElementById('alert1');
-    var alert2 = document.getElementById('alert2');
-    var alert3 = document.getElementById('alert3');
-    function alertOpenAll() {
-        alert1.style.display = 'block';
-        alert2.style.display = 'block';
-        alert3.style.display = 'block';
-    }
-    function alertCloseAll() {
-        alert1.style.display = 'none';
-        alert2.style.display = 'none';
-        alert3.style.display = 'none';
-    }
-    send.onclick = function () {
-        var newDiv = document.createElement('div');
-        newDiv.className = "float-right chat-box";
-        var comstrs = inputText.value.replaceAll('\n', '</br>');
-        newDiv.innerHTML = '<img src="images/微信头像1.jpg" height="35" class="float-right user-select"><div class="triangle-me float-right"></div><div class="dialogue-me float-right" data-time="' + (+new Date()) + '">' + comstrs + '</div>';
-        var _newDiv = document.createElement('div');
-        _newDiv.className = "float-left time-box";
-        _newDiv.innerHTML = '<span class="chat-time user-select">' + countTime() + '</span>';
-        if (inputText.value.trim() == '') {
-            alertOpenAll();
-            setTimeout(alertCloseAll, 3000);
-        }
-        else {
-            if (newDiv.children[newDiv.children.length - 1].dataset.time - chat.children[chat.children.length - 1].children[chat.children[chat.children.length - 1].children.length - 1].dataset.time > 120000) {
-                chat.appendChild(_newDiv);
-            }
-            chat.appendChild(newDiv);
-        }
-        chat.scrollTop = chat.scrollHeight - chat.offsetHeight;
-        inputText.value = '';
-    }
 })
